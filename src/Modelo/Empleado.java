@@ -10,4 +10,8 @@ package Modelo;
  */
 public class Empleado {
     
+    public Empleado(){
+    
+    }
+    
 }
