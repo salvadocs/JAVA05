@@ -7,15 +7,26 @@ package Vista;
  *
  * @author Salva
  */
-public class InterfazGraficas extends javax.swing.JFrame {
-
+import Controlador.AccesoBD;
+import Modelo.Empleado;
+import java.awt.Image;
+import java.util.ArrayList;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+public class InterfazGrafica extends javax.swing.JFrame {
+    private AccesoBD bd = new AccesoBD();
+    private ArrayList<Empleado> lista = new ArrayList<>();
+    private Empleado actual = new Empleado();
+    private int indice = 0;
+    
     /**
      * Creates new form InterfazGraficas
      */
-    public InterfazGraficas() {
+    public InterfazGrafica() {
         super("Gestion Empleados");
         initComponents();
-        cambiarContenedor(Bienvenida);
+        //cambiarContenedor(Bienvenida);
+        cambiarContenedor(InicioSesion);
     }
 
     /**
@@ -39,20 +50,26 @@ public class InterfazGraficas extends javax.swing.JFrame {
         NombreLabel = new javax.swing.JLabel();
         SueldoLabel = new javax.swing.JLabel();
         SueldoMaxLabel = new javax.swing.JLabel();
-        SueldoMaxField = new javax.swing.JTextField();
+        FechaField = new javax.swing.JTextField();
         NumeroField = new javax.swing.JTextField();
         NombreField = new javax.swing.JTextField();
         ApellidoField = new javax.swing.JTextField();
         SueldoField = new javax.swing.JTextField();
         FechaLabel = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         RetrocederButton = new javax.swing.JButton();
         AvanzarButton = new javax.swing.JButton();
         Imagen = new javax.swing.JLabel();
+        SueldoMaxField = new javax.swing.JTextField();
         VCompletoPanel = new javax.swing.JPanel();
         TituloIndividual1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Jlist = new javax.swing.JList<>();
+        InicioSesion = new javax.swing.JPanel();
+        jTextFieldUsuario = new javax.swing.JTextField();
+        jTextFieldContraseña = new javax.swing.JTextField();
+        AccederButton = new javax.swing.JButton();
+        jLabelContraseña = new javax.swing.JLabel();
+        jLabelUsuario = new javax.swing.JLabel();
         Barra = new javax.swing.JMenuBar();
         Inicio = new javax.swing.JMenu();
         VisualizarIndividual = new javax.swing.JMenu();
@@ -93,7 +110,7 @@ public class InterfazGraficas extends javax.swing.JFrame {
                 .addComponent(Version)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BienvenidaLayout.createSequentialGroup()
-                .addContainerGap(222, Short.MAX_VALUE)
+                .addContainerGap(1149, Short.MAX_VALUE)
                 .addGroup(BienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BienvenidaLayout.createSequentialGroup()
                         .addComponent(Autores)
@@ -113,7 +130,7 @@ public class InterfazGraficas extends javax.swing.JFrame {
                 .addGroup(BienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Gestiontittle, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(MyTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 198, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 720, Short.MAX_VALUE)
                 .addComponent(Autores)
                 .addGap(28, 28, 28))
         );
@@ -121,6 +138,7 @@ public class InterfazGraficas extends javax.swing.JFrame {
         VIndividualJPanel.setBackground(new java.awt.Color(41, 44, 51));
         VIndividualJPanel.setForeground(new java.awt.Color(51, 51, 51));
         VIndividualJPanel.setToolTipText("");
+        VIndividualJPanel.setPreferredSize(new java.awt.Dimension(898, 575));
 
         TituloIndividual.setBackground(new java.awt.Color(153, 153, 255));
         TituloIndividual.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 36)); // NOI18N
@@ -147,9 +165,9 @@ public class InterfazGraficas extends javax.swing.JFrame {
         SueldoMaxLabel.setForeground(new java.awt.Color(204, 204, 204));
         SueldoMaxLabel.setText("Sueldo Max");
 
-        SueldoMaxField.setBackground(new java.awt.Color(204, 204, 204));
-        SueldoMaxField.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        SueldoMaxField.setForeground(new java.awt.Color(51, 51, 51));
+        FechaField.setBackground(new java.awt.Color(204, 204, 204));
+        FechaField.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        FechaField.setForeground(new java.awt.Color(51, 51, 51));
 
         NumeroField.setBackground(new java.awt.Color(204, 204, 204));
         NumeroField.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -174,11 +192,7 @@ public class InterfazGraficas extends javax.swing.JFrame {
 
         FechaLabel.setFont(new java.awt.Font("Franklin Gothic Book", 1, 24)); // NOI18N
         FechaLabel.setForeground(new java.awt.Color(204, 204, 204));
-        FechaLabel.setText("Fecha");
-
-        jDateChooser1.setBackground(new java.awt.Color(204, 204, 204));
-        jDateChooser1.setForeground(new java.awt.Color(51, 51, 51));
-        jDateChooser1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        FechaLabel.setText("Fecha de Alta");
 
         RetrocederButton.setBackground(new java.awt.Color(56, 67, 75));
         RetrocederButton.setFont(new java.awt.Font("Franklin Gothic Book", 1, 18)); // NOI18N
@@ -202,6 +216,10 @@ public class InterfazGraficas extends javax.swing.JFrame {
 
         Imagen.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 4, true));
 
+        SueldoMaxField.setBackground(new java.awt.Color(204, 204, 204));
+        SueldoMaxField.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        SueldoMaxField.setForeground(new java.awt.Color(51, 51, 51));
+
         javax.swing.GroupLayout VIndividualJPanelLayout = new javax.swing.GroupLayout(VIndividualJPanel);
         VIndividualJPanel.setLayout(VIndividualJPanelLayout);
         VIndividualJPanelLayout.setHorizontalGroup(
@@ -213,17 +231,8 @@ public class InterfazGraficas extends javax.swing.JFrame {
                 .addComponent(AvanzarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, VIndividualJPanelLayout.createSequentialGroup()
-                .addGap(98, 98, 98)
+                .addGap(43, 43, 43)
                 .addGroup(VIndividualJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(VIndividualJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, VIndividualJPanelLayout.createSequentialGroup()
-                            .addComponent(NumeroLabel)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(NumeroField, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(VIndividualJPanelLayout.createSequentialGroup()
-                            .addComponent(NombreLabel)
-                            .addGap(30, 30, 30)
-                            .addComponent(NombreField, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(VIndividualJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(VIndividualJPanelLayout.createSequentialGroup()
                             .addComponent(ApellidoLabel)
@@ -232,20 +241,28 @@ public class InterfazGraficas extends javax.swing.JFrame {
                         .addGroup(VIndividualJPanelLayout.createSequentialGroup()
                             .addComponent(SueldoLabel)
                             .addGap(30, 30, 30)
-                            .addComponent(SueldoField, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                            .addComponent(SueldoField, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(VIndividualJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(VIndividualJPanelLayout.createSequentialGroup()
+                            .addComponent(NombreLabel)
+                            .addGap(30, 30, 30)
+                            .addComponent(NombreField, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(VIndividualJPanelLayout.createSequentialGroup()
+                            .addComponent(NumeroLabel)
+                            .addGap(30, 30, 30)
+                            .addComponent(NumeroField, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 991, Short.MAX_VALUE)
                 .addGroup(VIndividualJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, VIndividualJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(VIndividualJPanelLayout.createSequentialGroup()
+                    .addComponent(Imagen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, VIndividualJPanelLayout.createSequentialGroup()
+                        .addGroup(VIndividualJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(FechaLabel)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(VIndividualJPanelLayout.createSequentialGroup()
-                            .addComponent(SueldoMaxLabel)
-                            .addGap(40, 40, 40)
-                            .addComponent(SueldoMaxField, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(Imagen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(60, 60, 60))
+                            .addComponent(SueldoMaxLabel))
+                        .addGap(29, 29, 29)
+                        .addGroup(VIndividualJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(SueldoMaxField, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(FechaField, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(86, 86, 86))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, VIndividualJPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(TituloIndividual)
@@ -254,35 +271,37 @@ public class InterfazGraficas extends javax.swing.JFrame {
         VIndividualJPanelLayout.setVerticalGroup(
             VIndividualJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(VIndividualJPanelLayout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(TituloIndividual)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-                .addGroup(VIndividualJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(VIndividualJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(VIndividualJPanelLayout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(TituloIndividual)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 542, Short.MAX_VALUE)
+                        .addComponent(Imagen, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35)
+                        .addGroup(VIndividualJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(FechaLabel)
+                            .addComponent(FechaField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(62, 62, 62)
+                        .addGroup(VIndividualJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(SueldoMaxField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(SueldoMaxLabel, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(VIndividualJPanelLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(VIndividualJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(NumeroLabel)
                             .addComponent(NumeroField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(63, 63, 63)
+                        .addGap(34, 34, 34)
                         .addGroup(VIndividualJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(NombreLabel)
                             .addComponent(NombreField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, VIndividualJPanelLayout.createSequentialGroup()
-                        .addComponent(Imagen, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)))
-                .addGroup(VIndividualJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(VIndividualJPanelLayout.createSequentialGroup()
+                        .addGap(35, 35, 35)
                         .addGroup(VIndividualJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(FechaLabel)
                             .addComponent(ApellidoLabel)
                             .addComponent(ApellidoField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(62, 62, 62)
+                        .addGap(28, 28, 28)
                         .addGroup(VIndividualJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(SueldoLabel)
-                            .addComponent(SueldoField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(SueldoMaxField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(SueldoMaxLabel)))
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(SueldoField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(41, 41, 41)
                 .addGroup(VIndividualJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(RetrocederButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -331,6 +350,72 @@ public class InterfazGraficas extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(37, Short.MAX_VALUE))
+        );
+
+        InicioSesion.setBackground(new java.awt.Color(41, 44, 51));
+        InicioSesion.setPreferredSize(new java.awt.Dimension(898, 575));
+
+        jTextFieldUsuario.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jTextFieldUsuario.setText("usuario");
+
+        jTextFieldContraseña.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jTextFieldContraseña.setText("usuario");
+
+        AccederButton.setBackground(new java.awt.Color(56, 67, 75));
+        AccederButton.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 24)); // NOI18N
+        AccederButton.setForeground(new java.awt.Color(255, 255, 255));
+        AccederButton.setText("Acceder");
+        AccederButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AccederButtonActionPerformed(evt);
+            }
+        });
+
+        jLabelContraseña.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 24)); // NOI18N
+        jLabelContraseña.setForeground(new java.awt.Color(204, 204, 204));
+        jLabelContraseña.setText("Contraseña");
+
+        jLabelUsuario.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 24)); // NOI18N
+        jLabelUsuario.setForeground(new java.awt.Color(204, 204, 204));
+        jLabelUsuario.setText("Usuario");
+
+        javax.swing.GroupLayout InicioSesionLayout = new javax.swing.GroupLayout(InicioSesion);
+        InicioSesion.setLayout(InicioSesionLayout);
+        InicioSesionLayout.setHorizontalGroup(
+            InicioSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(InicioSesionLayout.createSequentialGroup()
+                .addGap(199, 199, 199)
+                .addGroup(InicioSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(InicioSesionLayout.createSequentialGroup()
+                        .addGroup(InicioSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelUsuario)
+                            .addComponent(jLabelContraseña))
+                        .addGap(51, 51, 51)
+                        .addGroup(InicioSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(InicioSesionLayout.createSequentialGroup()
+                        .addGap(234, 234, 234)
+                        .addComponent(AccederButton, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(393, Short.MAX_VALUE))
+        );
+        InicioSesionLayout.setVerticalGroup(
+            InicioSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, InicioSesionLayout.createSequentialGroup()
+                .addContainerGap(216, Short.MAX_VALUE)
+                .addGroup(InicioSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(InicioSesionLayout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabelUsuario)
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabelContraseña))
+                    .addGroup(InicioSesionLayout.createSequentialGroup()
+                        .addComponent(jTextFieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(jTextFieldContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(AccederButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(194, 194, 194))
         );
 
         Barra.setBackground(new java.awt.Color(61, 63, 65));
@@ -389,28 +474,39 @@ public class InterfazGraficas extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Bienvenida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(Bienvenida, javax.swing.GroupLayout.DEFAULT_SIZE, 1812, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(VIndividualJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(VIndividualJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1812, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(392, 392, 392)
                     .addComponent(VCompletoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(393, Short.MAX_VALUE)))
+                    .addContainerGap(522, Short.MAX_VALUE)))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(193, 193, 193)
+                    .addComponent(InicioSesion, javax.swing.GroupLayout.DEFAULT_SIZE, 1027, Short.MAX_VALUE)
+                    .addGap(592, 592, 592)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Bienvenida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(Bienvenida, javax.swing.GroupLayout.DEFAULT_SIZE, 1075, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(VIndividualJPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(VIndividualJPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1075, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(250, 250, 250)
                     .addComponent(VCompletoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(250, Short.MAX_VALUE)))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(106, 106, 106)
+                    .addComponent(InicioSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(394, 394, 394)))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InicioActionPerformed
@@ -430,6 +526,11 @@ public class InterfazGraficas extends javax.swing.JFrame {
     private void VisualizarIndividualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_VisualizarIndividualMouseClicked
         // TODO add your handling code here:
         cambiarContenedor(VIndividualJPanel);
+        lista = bd.getListaEmpleados();
+        indice = 0;
+        actual = lista.get(indice);
+        mostrarEmpleadoActual();
+        RetrocederButton.setEnabled(false);
     }//GEN-LAST:event_VisualizarIndividualMouseClicked
 
     private void VisualizarCompletoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_VisualizarCompletoMouseClicked
@@ -449,11 +550,36 @@ public class InterfazGraficas extends javax.swing.JFrame {
 
     private void RetrocederButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RetrocederButtonActionPerformed
         // TODO add your handling code here:
+        try{
+            retrocederLista();
+            mostrarEmpleadoActual();
+            AvanzarButton.setEnabled(true);
+        }catch(IndexOutOfBoundsException ioobe){
+            RetrocederButton.setEnabled(false);
+            JOptionPane.showMessageDialog(this, "No hay mas elementos.", "Error", 0);
+        }
     }//GEN-LAST:event_RetrocederButtonActionPerformed
 
     private void AvanzarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AvanzarButtonActionPerformed
         // TODO add your handling code here:
+        try{
+            avanzarLista();
+            mostrarEmpleadoActual();
+            RetrocederButton.setEnabled(true);
+        }catch(IndexOutOfBoundsException ioobe){
+            AvanzarButton.setEnabled(false);
+            JOptionPane.showMessageDialog(this, "No hay mas elementos.", "Error", 0);
+        }
     }//GEN-LAST:event_AvanzarButtonActionPerformed
+
+    private void AccederButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccederButtonActionPerformed
+        // TODO add your handling code here:
+        if(bd.getConnection(jTextFieldUsuario.getText(), jTextFieldContraseña.getText()))
+            cambiarContenedor(Bienvenida);
+        else
+            JOptionPane.showMessageDialog(this, "Las credenciales introducidas son erróneas.", "Error" , 0);
+        
+    }//GEN-LAST:event_AccederButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -472,24 +598,50 @@ public class InterfazGraficas extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InterfazGraficas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InterfazGrafica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InterfazGraficas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InterfazGrafica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InterfazGraficas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InterfazGrafica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InterfazGraficas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InterfazGrafica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new InterfazGraficas().setVisible(true);
+                new InterfazGrafica().setVisible(true);
             }
         });
         
         
+    }
+    //int numero, String nombre, String apellido, String foto, float sueldo, float sueldoMax, Date fechaAlta
+    private void mostrarEmpleadoActual() {
+        
+        NumeroField.setText(actual.getNumero() + "");
+        NombreField.setText(actual.getNombre());
+        ApellidoField.setText(actual.getApellido());
+        SueldoField.setText(actual.getSueldo() + "");
+        SueldoMaxField.setText(actual.getSueldoMax() + "");
+        FechaField.setText(actual.getFechaAlta().toString());
+        var icon = new ImageIcon("img/" + actual.getFoto());
+        Image img = icon.getImage();
+        icon = new ImageIcon(img.getScaledInstance(204, 174, Image.SCALE_SMOOTH));
+        Imagen.setIcon(icon);
+
+    }
+    
+    private void avanzarLista() {
+        actual = lista.get(indice+1);
+        indice++;
+    }
+    
+    private void retrocederLista() {
+        actual = lista.get(indice-1);
+        indice--;
     }
     
     private void cambiarContenedor(javax.swing.JPanel aux){
@@ -498,16 +650,19 @@ public class InterfazGraficas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AccederButton;
     private javax.swing.JTextField ApellidoField;
     private javax.swing.JLabel ApellidoLabel;
     private javax.swing.JLabel Autores;
     private javax.swing.JButton AvanzarButton;
     private javax.swing.JMenuBar Barra;
     private javax.swing.JPanel Bienvenida;
+    private javax.swing.JTextField FechaField;
     private javax.swing.JLabel FechaLabel;
     private javax.swing.JLabel Gestiontittle;
     private javax.swing.JLabel Imagen;
     private javax.swing.JMenu Inicio;
+    private javax.swing.JPanel InicioSesion;
     private javax.swing.JList<String> Jlist;
     private javax.swing.JLabel MyTitle;
     private javax.swing.JTextField NombreField;
@@ -526,7 +681,14 @@ public class InterfazGraficas extends javax.swing.JFrame {
     private javax.swing.JLabel Version;
     private javax.swing.JMenu VisualizarCompleto;
     private javax.swing.JMenu VisualizarIndividual;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private javax.swing.JLabel jLabelContraseña;
+    private javax.swing.JLabel jLabelUsuario;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextFieldContraseña;
+    private javax.swing.JTextField jTextFieldUsuario;
     // End of variables declaration//GEN-END:variables
+
+    
+
+    
 }
