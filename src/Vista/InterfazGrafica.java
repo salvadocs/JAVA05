@@ -12,6 +12,7 @@ import Modelo.Empleado;
 import java.awt.Image;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 public class InterfazGrafica extends javax.swing.JFrame {
     private AccesoBD bd = new AccesoBD();
@@ -60,6 +61,8 @@ public class InterfazGrafica extends javax.swing.JFrame {
         AvanzarButton = new javax.swing.JButton();
         Imagen = new javax.swing.JLabel();
         SueldoMaxField = new javax.swing.JTextField();
+        jComboBoxFiltrarApellido = new javax.swing.JComboBox<>();
+        FiltrarApellidoButton = new javax.swing.JButton();
         VCompletoPanel = new javax.swing.JPanel();
         TituloIndividual1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -165,10 +168,12 @@ public class InterfazGrafica extends javax.swing.JFrame {
         SueldoMaxLabel.setForeground(new java.awt.Color(204, 204, 204));
         SueldoMaxLabel.setText("Sueldo Max");
 
+        FechaField.setEditable(false);
         FechaField.setBackground(new java.awt.Color(204, 204, 204));
         FechaField.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         FechaField.setForeground(new java.awt.Color(51, 51, 51));
 
+        NumeroField.setEditable(false);
         NumeroField.setBackground(new java.awt.Color(204, 204, 204));
         NumeroField.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         NumeroField.setForeground(new java.awt.Color(51, 51, 51));
@@ -178,14 +183,17 @@ public class InterfazGrafica extends javax.swing.JFrame {
             }
         });
 
+        NombreField.setEditable(false);
         NombreField.setBackground(new java.awt.Color(204, 204, 204));
         NombreField.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         NombreField.setForeground(new java.awt.Color(51, 51, 51));
 
+        ApellidoField.setEditable(false);
         ApellidoField.setBackground(new java.awt.Color(204, 204, 204));
         ApellidoField.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         ApellidoField.setForeground(new java.awt.Color(51, 51, 51));
 
+        SueldoField.setEditable(false);
         SueldoField.setBackground(new java.awt.Color(204, 204, 204));
         SueldoField.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         SueldoField.setForeground(new java.awt.Color(51, 51, 51));
@@ -216,9 +224,19 @@ public class InterfazGrafica extends javax.swing.JFrame {
 
         Imagen.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 4, true));
 
+        SueldoMaxField.setEditable(false);
         SueldoMaxField.setBackground(new java.awt.Color(204, 204, 204));
         SueldoMaxField.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         SueldoMaxField.setForeground(new java.awt.Color(51, 51, 51));
+
+        jComboBoxFiltrarApellido.setMaximumRowCount(500);
+
+        FiltrarApellidoButton.setText("Filtrar");
+        FiltrarApellidoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FiltrarApellidoButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout VIndividualJPanelLayout = new javax.swing.GroupLayout(VIndividualJPanel);
         VIndividualJPanel.setLayout(VIndividualJPanelLayout);
@@ -250,7 +268,12 @@ public class InterfazGrafica extends javax.swing.JFrame {
                         .addGroup(VIndividualJPanelLayout.createSequentialGroup()
                             .addComponent(NumeroLabel)
                             .addGap(30, 30, 30)
-                            .addComponent(NumeroField, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(VIndividualJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(VIndividualJPanelLayout.createSequentialGroup()
+                                    .addComponent(jComboBoxFiltrarApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(31, 31, 31)
+                                    .addComponent(FiltrarApellidoButton))
+                                .addComponent(NumeroField, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 991, Short.MAX_VALUE)
                 .addGroup(VIndividualJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Imagen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -287,6 +310,10 @@ public class InterfazGrafica extends javax.swing.JFrame {
                             .addComponent(SueldoMaxLabel, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(VIndividualJPanelLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(VIndividualJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jComboBoxFiltrarApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(FiltrarApellidoButton))
+                        .addGap(32, 32, 32)
                         .addGroup(VIndividualJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(NumeroLabel)
                             .addComponent(NumeroField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -526,12 +553,21 @@ public class InterfazGrafica extends javax.swing.JFrame {
     private void VisualizarIndividualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_VisualizarIndividualMouseClicked
         // TODO add your handling code here:
         cambiarContenedor(VIndividualJPanel);
-        lista = bd.getListaEmpleados();
-        indice = 0;
-        actual = lista.get(indice);
-        mostrarEmpleadoActual();
-        RetrocederButton.setEnabled(false);
+        
+        InicioVisualizarIndividual();
+        String[] ape = bd.getApellidosDistintos();
+        
+        for (String a : ape){
+            System.out.println(a);
+        }
+        jComboBoxFiltrarApellido.setModel(new javax.swing.DefaultComboBoxModel<>(bd.getApellidosDistintos()));
+
+        
+        
+        
     }//GEN-LAST:event_VisualizarIndividualMouseClicked
+
+    
 
     private void VisualizarCompletoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_VisualizarCompletoMouseClicked
         // TODO add your handling code here:
@@ -581,6 +617,22 @@ public class InterfazGrafica extends javax.swing.JFrame {
         
     }//GEN-LAST:event_AccederButtonActionPerformed
 
+    private void FiltrarApellidoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FiltrarApellidoButtonActionPerformed
+        // TODO add your handling code here:
+        System.out.println(jComboBoxFiltrarApellido.getSelectedItem().toString());
+        if(jComboBoxFiltrarApellido.getSelectedItem().toString().equals("ninguno")){
+            InicioVisualizarIndividual();
+            
+        } else{
+            lista = bd.getListaFiltrada(jComboBoxFiltrarApellido.getSelectedItem().toString());
+            indice = 0;
+            actual = lista.get(indice);
+            mostrarEmpleadoActual();
+            RetrocederButton.setEnabled(false);
+            AvanzarButton.setEnabled(true);
+        }
+    }//GEN-LAST:event_FiltrarApellidoButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -618,7 +670,16 @@ public class InterfazGrafica extends javax.swing.JFrame {
         
         
     }
-    //int numero, String nombre, String apellido, String foto, float sueldo, float sueldoMax, Date fechaAlta
+    
+    private void InicioVisualizarIndividual() {
+        lista = bd.getListaEmpleados();
+        indice = 0;
+        actual = lista.get(indice);
+        mostrarEmpleadoActual();
+        RetrocederButton.setEnabled(false);
+        AvanzarButton.setEnabled(true);
+    }
+    
     private void mostrarEmpleadoActual() {
         
         NumeroField.setText(actual.getNumero() + "");
@@ -659,6 +720,7 @@ public class InterfazGrafica extends javax.swing.JFrame {
     private javax.swing.JPanel Bienvenida;
     private javax.swing.JTextField FechaField;
     private javax.swing.JLabel FechaLabel;
+    private javax.swing.JButton FiltrarApellidoButton;
     private javax.swing.JLabel Gestiontittle;
     private javax.swing.JLabel Imagen;
     private javax.swing.JMenu Inicio;
@@ -681,6 +743,7 @@ public class InterfazGrafica extends javax.swing.JFrame {
     private javax.swing.JLabel Version;
     private javax.swing.JMenu VisualizarCompleto;
     private javax.swing.JMenu VisualizarIndividual;
+    private javax.swing.JComboBox<String> jComboBoxFiltrarApellido;
     private javax.swing.JLabel jLabelContraseña;
     private javax.swing.JLabel jLabelUsuario;
     private javax.swing.JScrollPane jScrollPane1;
