@@ -128,6 +128,40 @@ public class AccesoBD {
         }
         return lista;
     }
+    
+    }
+    
+     public ArrayList<Empleado> getListaFiltradaFecha(String date1, String date2) {
+        ArrayList<Empleado> listaAux = new ArrayList<>();
+        System.out.println(date1);
+        System.out.println(date2);
+        
+        try {
+            
+            Empleado emp;
+            Connection con = getConnection();
+
+            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs = stmt.executeQuery("SELECT * FROM empleado WHERE FECHAALTA BETWEEN '" + date1 + "' AND '" + date2 + "' ORDER BY FECHAALTA"); //COMILLAS SIMPLES PARA LA CONSULTA DE FECHAS
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int ncol = rsmd.getColumnCount();
+
+            while (rs.next()) {
+                emp = new Empleado(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getFloat(5), rs.getFloat(6), new Date(rs.getDate(7).getTime()));
+                listaAux.add(emp);
+
+            }
+
+            rs.close();
+            stmt.close();
+            con.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return listaAux;
+
+    }
 
     public Connection getConnection() {
         try {

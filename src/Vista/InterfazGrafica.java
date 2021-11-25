@@ -10,13 +10,19 @@ package Vista;
 import Controlador.AccesoBD;
 import Modelo.Empleado;
 import java.awt.Image;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 public class InterfazGrafica extends javax.swing.JFrame {
     private AccesoBD bd = new AccesoBD();
     private ArrayList<Empleado> lista = new ArrayList<>();
+    private ArrayList<Empleado> listaAux = new ArrayList<>();
+    SimpleDateFormat dFormat = new SimpleDateFormat("yyyy-MM-dd");
+
     private Empleado actual = new Empleado();
     private int indice = 0;
     
@@ -28,6 +34,8 @@ public class InterfazGrafica extends javax.swing.JFrame {
         initComponents();
         //cambiarContenedor(Bienvenida);
         cambiarContenedor(InicioSesion);
+        Barra.setVisible(false);
+
     }
 
     /**
@@ -67,12 +75,18 @@ public class InterfazGrafica extends javax.swing.JFrame {
         TituloIndividual1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Jlist = new javax.swing.JList<>();
+        SueldoLabel1 = new javax.swing.JLabel();
+        SueldoLabel2 = new javax.swing.JLabel();
+        jDateHasta = new com.toedter.calendar.JDateChooser();
+        jDateDesde = new com.toedter.calendar.JDateChooser();
+        FiltrarButton = new javax.swing.JButton();
         InicioSesion = new javax.swing.JPanel();
         jTextFieldUsuario = new javax.swing.JTextField();
         jTextFieldContraseña = new javax.swing.JTextField();
         AccederButton = new javax.swing.JButton();
         jLabelContraseña = new javax.swing.JLabel();
         jLabelUsuario = new javax.swing.JLabel();
+        MyTitle1 = new javax.swing.JLabel();
         Barra = new javax.swing.JMenuBar();
         Inicio = new javax.swing.JMenu();
         VisualizarIndividual = new javax.swing.JMenu();
@@ -348,35 +362,146 @@ public class InterfazGrafica extends javax.swing.JFrame {
         Jlist.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 4, true));
         Jlist.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         Jlist.setForeground(new java.awt.Color(204, 204, 204));
-        Jlist.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Empleado1", "Empleado2" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
+        Jlist.setAutoscrolls(false);
         jScrollPane1.setViewportView(Jlist);
+
+        SueldoLabel1.setFont(new java.awt.Font("Franklin Gothic Book", 1, 24)); // NOI18N
+        SueldoLabel1.setForeground(new java.awt.Color(204, 204, 204));
+        SueldoLabel1.setText("Hasta");
+
+        SueldoLabel2.setFont(new java.awt.Font("Franklin Gothic Book", 1, 24)); // NOI18N
+        SueldoLabel2.setForeground(new java.awt.Color(204, 204, 204));
+        SueldoLabel2.setText("Desde");
+
+        FiltrarButton.setBackground(new java.awt.Color(56, 67, 75));
+        FiltrarButton.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
+        FiltrarButton.setForeground(new java.awt.Color(205, 205, 205));
+        FiltrarButton.setText("Filtrar");
+        FiltrarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FiltrarButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout VCompletoPanelLayout = new javax.swing.GroupLayout(VCompletoPanel);
         VCompletoPanel.setLayout(VCompletoPanelLayout);
         VCompletoPanelLayout.setHorizontalGroup(
             VCompletoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, VCompletoPanelLayout.createSequentialGroup()
+                .addContainerGap(71, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 765, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(62, 62, 62))
             .addGroup(VCompletoPanelLayout.createSequentialGroup()
-                .addContainerGap(75, Short.MAX_VALUE)
-                .addGroup(VCompletoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, VCompletoPanelLayout.createSequentialGroup()
-                        .addComponent(TituloIndividual1)
-                        .addGap(217, 217, 217))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, VCompletoPanelLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 765, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(58, 58, 58))))
+                .addGap(81, 81, 81)
+                .addComponent(SueldoLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(jDateDesde, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(SueldoLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(jDateHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(FiltrarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(VCompletoPanelLayout.createSequentialGroup()
+                .addGap(227, 227, 227)
+                .addComponent(TituloIndividual1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         VCompletoPanelLayout.setVerticalGroup(
             VCompletoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(VCompletoPanelLayout.createSequentialGroup()
-                .addGap(38, 38, 38)
+                .addGap(33, 33, 33)
                 .addComponent(TituloIndividual1)
-                .addGap(31, 31, 31)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addGroup(VCompletoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(SueldoLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jDateHasta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDateDesde, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SueldoLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(FiltrarButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addGap(23, 23, 23))
+        );
+
+        InicioSesion.setBackground(new java.awt.Color(41, 44, 51));
+        InicioSesion.setPreferredSize(new java.awt.Dimension(898, 575));
+
+        jTextFieldUsuario.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jTextFieldUsuario.setText("usuario");
+        jTextFieldUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldUsuarioActionPerformed(evt);
+            }
+        });
+
+        jTextFieldContraseña.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jTextFieldContraseña.setText("usuario");
+
+        AccederButton.setBackground(new java.awt.Color(56, 67, 75));
+        AccederButton.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 24)); // NOI18N
+        AccederButton.setForeground(new java.awt.Color(237, 187, 88));
+        AccederButton.setText("Acceder");
+        AccederButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AccederButtonActionPerformed(evt);
+            }
+        });
+
+        jLabelContraseña.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 24)); // NOI18N
+        jLabelContraseña.setForeground(new java.awt.Color(204, 204, 204));
+        jLabelContraseña.setText("Contraseña");
+
+        jLabelUsuario.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 24)); // NOI18N
+        jLabelUsuario.setForeground(new java.awt.Color(204, 204, 204));
+        jLabelUsuario.setText("Usuario");
+
+        MyTitle1.setBackground(new java.awt.Color(153, 153, 255));
+        MyTitle1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 48)); // NOI18N
+        MyTitle1.setForeground(new java.awt.Color(205, 205, 205));
+        MyTitle1.setText("Iniciar sesión");
+
+        javax.swing.GroupLayout InicioSesionLayout = new javax.swing.GroupLayout(InicioSesion);
+        InicioSesion.setLayout(InicioSesionLayout);
+        InicioSesionLayout.setHorizontalGroup(
+            InicioSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, InicioSesionLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(AccederButton, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(54, 54, 54))
+            .addGroup(InicioSesionLayout.createSequentialGroup()
+                .addGroup(InicioSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(InicioSesionLayout.createSequentialGroup()
+                        .addGap(270, 270, 270)
+                        .addGroup(InicioSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabelUsuario)
+                            .addComponent(jLabelContraseña))
+                        .addGap(32, 32, 32)
+                        .addGroup(InicioSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(InicioSesionLayout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(MyTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, 601, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(341, Short.MAX_VALUE))
+        );
+        InicioSesionLayout.setVerticalGroup(
+            InicioSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, InicioSesionLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(MyTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(72, 72, 72)
+                .addGroup(InicioSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(51, 51, 51)
+                .addGroup(InicioSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+                .addComponent(AccederButton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46))
         );
 
         InicioSesion.setBackground(new java.awt.Color(41, 44, 51));
@@ -486,6 +611,7 @@ public class InterfazGrafica extends javax.swing.JFrame {
         VisualizarCompleto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 VisualizarCompletoMouseClicked(evt);
+                
             }
         });
         VisualizarCompleto.addActionListener(new java.awt.event.ActionListener() {
@@ -538,12 +664,12 @@ public class InterfazGrafica extends javax.swing.JFrame {
 
     private void InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InicioActionPerformed
         // TODO add your handling code here:
-        
         cambiarContenedor(Bienvenida);
     }//GEN-LAST:event_InicioActionPerformed
 
     private void VisualizarCompletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VisualizarCompletoActionPerformed
         // TODO add your handling code here:
+
     }//GEN-LAST:event_VisualizarCompletoActionPerformed
 
     private void VisualizarIndividualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VisualizarIndividualActionPerformed
@@ -572,6 +698,8 @@ public class InterfazGrafica extends javax.swing.JFrame {
     private void VisualizarCompletoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_VisualizarCompletoMouseClicked
         // TODO add your handling code here:
         cambiarContenedor(VCompletoPanel);
+        visualizarEmpleadosCompleto();
+
     }//GEN-LAST:event_VisualizarCompletoMouseClicked
 
     private void InicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_InicioMouseClicked
@@ -610,8 +738,10 @@ public class InterfazGrafica extends javax.swing.JFrame {
 
     private void AccederButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccederButtonActionPerformed
         // TODO add your handling code here:
-        if(bd.getConnection(jTextFieldUsuario.getText(), jTextFieldContraseña.getText()))
+        if(bd.getConnection(jTextFieldUsuario.getText(), jTextFieldContraseña.getText())){
             cambiarContenedor(Bienvenida);
+            Barra.setVisible(true);
+        }
         else
             JOptionPane.showMessageDialog(this, "Las credenciales introducidas son erróneas.", "Error" , 0);
         
@@ -633,6 +763,18 @@ public class InterfazGrafica extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_FiltrarApellidoButtonActionPerformed
 
+    private void jTextFieldUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldUsuarioActionPerformed
+
+    private void FiltrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FiltrarButtonActionPerformed
+        // TODO add your handling code here:
+        
+        System.out.println(getFechaFiltro1());
+        filtroFecha();
+
+    }//GEN-LAST:event_FiltrarButtonActionPerformed
+    
     /**
      * @param args the command line arguments
      */
@@ -705,6 +847,65 @@ public class InterfazGrafica extends javax.swing.JFrame {
         indice--;
     }
     
+    private void visualizarEmpleadosCompleto(){
+        
+        
+        
+        lista = bd.getListaEmpleados();
+        Object emple;
+
+        DefaultListModel model = new DefaultListModel();
+        
+        for(int i = 0; i < lista.size(); i++){
+            emple = lista.get(i);
+            model.addElement(emple);
+
+        }
+        
+        this.Jlist.setModel(model);
+    }
+    
+    private void filtroFecha(){
+        
+        String date1 = getFechaFiltro1();
+        String date2 = getFechaFiltro2();
+
+    
+        listaAux = bd.getListaFiltradaFecha(date1, date2);
+        Object emple;
+        
+
+        DefaultListModel model = new DefaultListModel();
+                    System.out.print("\n");
+
+        for(int i = 0; i < listaAux.size(); i++){
+            emple = listaAux.get(i);
+            model.addElement(emple);
+            System.out.print("\n" + emple);
+
+        }
+        
+        this.Jlist.setModel(model);
+ 
+    }
+    
+    public String getFechaFiltro1(){
+        //SimpleDateFormat dFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        String date1 = dFormat.format(jDateDesde.getDate());
+        
+        
+        return date1;
+
+    }
+
+    public String getFechaFiltro2(){
+
+        String date2 = dFormat.format(jDateHasta.getDate());
+                
+        return date2;
+
+    }
     private void cambiarContenedor(javax.swing.JPanel aux){
       this.setContentPane(aux);
       pack();
@@ -721,12 +922,14 @@ public class InterfazGrafica extends javax.swing.JFrame {
     private javax.swing.JTextField FechaField;
     private javax.swing.JLabel FechaLabel;
     private javax.swing.JButton FiltrarApellidoButton;
+    private javax.swing.JButton FiltrarButton;
     private javax.swing.JLabel Gestiontittle;
     private javax.swing.JLabel Imagen;
     private javax.swing.JMenu Inicio;
     private javax.swing.JPanel InicioSesion;
     private javax.swing.JList<String> Jlist;
     private javax.swing.JLabel MyTitle;
+    private javax.swing.JLabel MyTitle1;
     private javax.swing.JTextField NombreField;
     private javax.swing.JLabel NombreLabel;
     private javax.swing.JTextField NumeroField;
@@ -734,6 +937,8 @@ public class InterfazGrafica extends javax.swing.JFrame {
     private javax.swing.JButton RetrocederButton;
     private javax.swing.JTextField SueldoField;
     private javax.swing.JLabel SueldoLabel;
+    private javax.swing.JLabel SueldoLabel1;
+    private javax.swing.JLabel SueldoLabel2;
     private javax.swing.JTextField SueldoMaxField;
     private javax.swing.JLabel SueldoMaxLabel;
     private javax.swing.JLabel TituloIndividual;
@@ -744,6 +949,8 @@ public class InterfazGrafica extends javax.swing.JFrame {
     private javax.swing.JMenu VisualizarCompleto;
     private javax.swing.JMenu VisualizarIndividual;
     private javax.swing.JComboBox<String> jComboBoxFiltrarApellido;
+    private com.toedter.calendar.JDateChooser jDateDesde;
+    private com.toedter.calendar.JDateChooser jDateHasta;
     private javax.swing.JLabel jLabelContraseña;
     private javax.swing.JLabel jLabelUsuario;
     private javax.swing.JScrollPane jScrollPane1;

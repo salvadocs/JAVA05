@@ -97,4 +97,14 @@ public class Empleado {
     public void setFechaAlta(Date fechaAlta) {
         this.fechaAlta = fechaAlta;
     }
+    
+    public String toString() {
+            
+        return  this.getNumero() + " | "
+                + this.getNombre() + " | "
+                + this.getApellido() + " | "
+                + this.getSueldo() + " | "
+                + this.getSueldoMax() + " | "
+                + this.getFechaAlta();
+    }    
 }
