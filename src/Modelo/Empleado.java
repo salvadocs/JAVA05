@@ -43,7 +43,7 @@ public class Empleado {
         return nombre;
     }
 
-    public String getapellido(){
+    public String getApellido(){
         return apellido;
     }
     
@@ -64,31 +64,47 @@ public class Empleado {
     }
     
     //Metodos set
-    public void setNumero(){
+    public void setNumero(int numero) {
         this.numero = numero;
     }
+
     
-    public void setNombre(){
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    public void setApellido(){
+    
+    public void setApellido(String apellido) {
         this.apellido = apellido;
-    }     
+    }
+
     
-    public void setFoto(){
+    public void setFoto(String foto) {
         this.foto = foto;
-    }     
+    }
+
     
-    public void setSueldo(){
+    public void setSueldo(float sueldo) {
         this.sueldo = sueldo;
-    }  
+    }
+
     
-    public void setSueldoMax(){
+    public void setSueldoMax(float sueldoMax) {
         this.sueldoMax = sueldoMax;
-    }  
+    }
+
     
-    public void setFechaAlt(){
+    public void setFechaAlta(Date fechaAlta) {
         this.fechaAlta = fechaAlta;
-    }  
+    }
+    
+    public String toString() {
+            
+        return  this.getNumero() + " | "
+                + this.getNombre() + " | "
+                + this.getApellido() + " | "
+                + this.getSueldo() + " | "
+                + this.getSueldoMax() + " | "
+                + this.getFechaAlta();
+    }    
 }
