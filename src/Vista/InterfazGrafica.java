@@ -11,11 +11,9 @@ import Controlador.AccesoBD;
 import Modelo.Empleado;
 import java.awt.Image;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 public class InterfazGrafica extends javax.swing.JFrame {
     private AccesoBD bd = new AccesoBD();
