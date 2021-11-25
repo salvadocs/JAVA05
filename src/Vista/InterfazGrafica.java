@@ -127,13 +127,13 @@ public class InterfazGrafica extends javax.swing.JFrame {
                 .addComponent(Version)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BienvenidaLayout.createSequentialGroup()
-                .addContainerGap(1149, Short.MAX_VALUE)
+                .addContainerGap(1131, Short.MAX_VALUE)
                 .addGroup(BienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BienvenidaLayout.createSequentialGroup()
                         .addComponent(Autores)
                         .addGap(307, 307, 307))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BienvenidaLayout.createSequentialGroup()
-                        .addComponent(MyTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(MyTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Gestiontittle, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(185, 185, 185))))
@@ -147,7 +147,7 @@ public class InterfazGrafica extends javax.swing.JFrame {
                 .addGroup(BienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Gestiontittle, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(MyTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 720, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 718, Short.MAX_VALUE)
                 .addComponent(Autores)
                 .addGap(28, 28, 28))
         );
@@ -235,6 +235,8 @@ public class InterfazGrafica extends javax.swing.JFrame {
                 AvanzarButtonActionPerformed(evt);
             }
         });
+
+        Imagen.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 4, true));
 
         SueldoMaxField.setEditable(false);
         SueldoMaxField.setBackground(new java.awt.Color(204, 204, 204));
@@ -357,6 +359,7 @@ public class InterfazGrafica extends javax.swing.JFrame {
         TituloIndividual1.setText("VISUALIZAR COMPLETO");
 
         Jlist.setBackground(new java.awt.Color(41, 44, 51));
+        Jlist.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 4, true));
         Jlist.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         Jlist.setForeground(new java.awt.Color(204, 204, 204));
         Jlist.setAutoscrolls(false);
