@@ -7,7 +7,6 @@ package Controlador;
  * - Actualizaciones, Borrados, e inserciones directas a la BDs y no al ResulSet.
  */
 import Modelo.Empleado;
-import Vista.InterfazGrafica;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -130,18 +129,6 @@ public class AccesoBD {
         return lista;
     }
     
-    public static void verfecha(){
-        InterfazGrafica iterf = new InterfazGrafica();
-        try{
-             String date1 = iterf.getFechaFiltro1();
-            String date2 = iterf.getFechaFiltro2();  
-                    System.out.println(date1);
-        System.out.println(date2);
-        }catch(NullPointerException ex){
-        }
-
-
-
     }
     
      public ArrayList<Empleado> getListaFiltradaFecha(String date1, String date2) {

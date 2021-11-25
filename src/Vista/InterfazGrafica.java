@@ -517,6 +517,72 @@ public class InterfazGrafica extends javax.swing.JFrame {
                 .addGap(46, 46, 46))
         );
 
+        InicioSesion.setBackground(new java.awt.Color(41, 44, 51));
+        InicioSesion.setPreferredSize(new java.awt.Dimension(898, 575));
+
+        jTextFieldUsuario.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jTextFieldUsuario.setText("usuario");
+
+        jTextFieldContraseña.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jTextFieldContraseña.setText("usuario");
+
+        AccederButton.setBackground(new java.awt.Color(56, 67, 75));
+        AccederButton.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 24)); // NOI18N
+        AccederButton.setForeground(new java.awt.Color(255, 255, 255));
+        AccederButton.setText("Acceder");
+        AccederButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AccederButtonActionPerformed(evt);
+            }
+        });
+
+        jLabelContraseña.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 24)); // NOI18N
+        jLabelContraseña.setForeground(new java.awt.Color(204, 204, 204));
+        jLabelContraseña.setText("Contraseña");
+
+        jLabelUsuario.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 24)); // NOI18N
+        jLabelUsuario.setForeground(new java.awt.Color(204, 204, 204));
+        jLabelUsuario.setText("Usuario");
+
+        javax.swing.GroupLayout InicioSesionLayout = new javax.swing.GroupLayout(InicioSesion);
+        InicioSesion.setLayout(InicioSesionLayout);
+        InicioSesionLayout.setHorizontalGroup(
+            InicioSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(InicioSesionLayout.createSequentialGroup()
+                .addGap(199, 199, 199)
+                .addGroup(InicioSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(InicioSesionLayout.createSequentialGroup()
+                        .addGroup(InicioSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelUsuario)
+                            .addComponent(jLabelContraseña))
+                        .addGap(51, 51, 51)
+                        .addGroup(InicioSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(InicioSesionLayout.createSequentialGroup()
+                        .addGap(234, 234, 234)
+                        .addComponent(AccederButton, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(393, Short.MAX_VALUE))
+        );
+        InicioSesionLayout.setVerticalGroup(
+            InicioSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, InicioSesionLayout.createSequentialGroup()
+                .addContainerGap(216, Short.MAX_VALUE)
+                .addGroup(InicioSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(InicioSesionLayout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabelUsuario)
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabelContraseña))
+                    .addGroup(InicioSesionLayout.createSequentialGroup()
+                        .addComponent(jTextFieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(jTextFieldContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(AccederButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(194, 194, 194))
+        );
+
         Barra.setBackground(new java.awt.Color(61, 63, 65));
         Barra.setForeground(new java.awt.Color(61, 63, 65));
         Barra.setToolTipText("");
