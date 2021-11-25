@@ -11,9 +11,11 @@ import Controlador.AccesoBD;
 import Modelo.Empleado;
 import java.awt.Image;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 public class InterfazGrafica extends javax.swing.JFrame {
     private AccesoBD bd = new AccesoBD();
@@ -80,11 +82,11 @@ public class InterfazGrafica extends javax.swing.JFrame {
         FiltrarButton = new javax.swing.JButton();
         InicioSesion = new javax.swing.JPanel();
         jTextFieldUsuario = new javax.swing.JTextField();
-        jTextFieldContraseña = new javax.swing.JTextField();
         AccederButton = new javax.swing.JButton();
         jLabelContraseña = new javax.swing.JLabel();
         jLabelUsuario = new javax.swing.JLabel();
         MyTitle1 = new javax.swing.JLabel();
+        jTextFieldContraseña = new javax.swing.JPasswordField();
         Barra = new javax.swing.JMenuBar();
         Inicio = new javax.swing.JMenu();
         VisualizarIndividual = new javax.swing.JMenu();
@@ -234,8 +236,6 @@ public class InterfazGrafica extends javax.swing.JFrame {
             }
         });
 
-        Imagen.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 4, true));
-
         SueldoMaxField.setEditable(false);
         SueldoMaxField.setBackground(new java.awt.Color(204, 204, 204));
         SueldoMaxField.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -357,7 +357,6 @@ public class InterfazGrafica extends javax.swing.JFrame {
         TituloIndividual1.setText("VISUALIZAR COMPLETO");
 
         Jlist.setBackground(new java.awt.Color(41, 44, 51));
-        Jlist.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 4, true));
         Jlist.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         Jlist.setForeground(new java.awt.Color(204, 204, 204));
         Jlist.setAutoscrolls(false);
@@ -411,7 +410,7 @@ public class InterfazGrafica extends javax.swing.JFrame {
             .addGroup(VCompletoPanelLayout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addComponent(TituloIndividual1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(VCompletoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(SueldoLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jDateHasta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -426,20 +425,18 @@ public class InterfazGrafica extends javax.swing.JFrame {
         InicioSesion.setBackground(new java.awt.Color(41, 44, 51));
         InicioSesion.setPreferredSize(new java.awt.Dimension(898, 575));
 
+        jTextFieldUsuario.setBackground(new java.awt.Color(68, 73, 74));
         jTextFieldUsuario.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jTextFieldUsuario.setText("usuario");
+        jTextFieldUsuario.setForeground(new java.awt.Color(205, 205, 205));
         jTextFieldUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldUsuarioActionPerformed(evt);
             }
         });
 
-        jTextFieldContraseña.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jTextFieldContraseña.setText("usuario");
-
         AccederButton.setBackground(new java.awt.Color(56, 67, 75));
         AccederButton.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 24)); // NOI18N
-        AccederButton.setForeground(new java.awt.Color(237, 187, 88));
+        AccederButton.setForeground(new java.awt.Color(205, 205, 205));
         AccederButton.setText("Acceder");
         AccederButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -457,8 +454,12 @@ public class InterfazGrafica extends javax.swing.JFrame {
 
         MyTitle1.setBackground(new java.awt.Color(153, 153, 255));
         MyTitle1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 48)); // NOI18N
-        MyTitle1.setForeground(new java.awt.Color(205, 205, 205));
-        MyTitle1.setText("Iniciar sesión");
+        MyTitle1.setForeground(new java.awt.Color(237, 187, 88));
+        MyTitle1.setText("- Iniciar sesión");
+
+        jTextFieldContraseña.setBackground(new java.awt.Color(68, 73, 74));
+        jTextFieldContraseña.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        jTextFieldContraseña.setForeground(new java.awt.Color(205, 205, 205));
 
         javax.swing.GroupLayout InicioSesionLayout = new javax.swing.GroupLayout(InicioSesion);
         InicioSesion.setLayout(InicioSesionLayout);
@@ -476,18 +477,19 @@ public class InterfazGrafica extends javax.swing.JFrame {
                             .addComponent(jLabelUsuario)
                             .addComponent(jLabelContraseña))
                         .addGap(32, 32, 32)
-                        .addGroup(InicioSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(InicioSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextFieldUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
+                            .addComponent(jTextFieldContraseña)))
                     .addGroup(InicioSesionLayout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addComponent(MyTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, 601, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(341, Short.MAX_VALUE))
+                .addContainerGap(343, Short.MAX_VALUE))
         );
         InicioSesionLayout.setVerticalGroup(
             InicioSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, InicioSesionLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
+<<<<<<< Updated upstream
                 .addComponent(MyTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(72, 72, 72)
                 .addGroup(InicioSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -498,6 +500,19 @@ public class InterfazGrafica extends javax.swing.JFrame {
                     .addComponent(jTextFieldContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+=======
+                .addGroup(InicioSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(InicioSesionLayout.createSequentialGroup()
+                        .addComponent(MyTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(72, 72, 72)
+                        .addGroup(InicioSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextFieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(51, 51, 51)
+                        .addComponent(jLabelContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
+>>>>>>> Stashed changes
                 .addComponent(AccederButton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46))
         );
@@ -543,7 +558,6 @@ public class InterfazGrafica extends javax.swing.JFrame {
         VisualizarCompleto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 VisualizarCompletoMouseClicked(evt);
-                
             }
         });
         VisualizarCompleto.addActionListener(new java.awt.event.ActionListener() {
@@ -886,7 +900,7 @@ public class InterfazGrafica extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelContraseña;
     private javax.swing.JLabel jLabelUsuario;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextFieldContraseña;
+    private javax.swing.JPasswordField jTextFieldContraseña;
     private javax.swing.JTextField jTextFieldUsuario;
     // End of variables declaration//GEN-END:variables
 
